@@ -7,3 +7,4 @@ with open('Data','rb') as fichier:
 
 print(Data[101].text)
 print(Data[110].text)
+print(Data[111].text)
