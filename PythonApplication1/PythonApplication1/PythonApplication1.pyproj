@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="citation.py" />
+    <Compile Include="import_csv_seneque_2.py" />
     <Compile Include="PythonApplication1.py" />
   </ItemGroup>
   <ItemGroup>
