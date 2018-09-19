@@ -5,9 +5,9 @@ class citation:
         self.text=text
         self.req=1
 
-    def __repr__(self):
-        return "Citation {} (text={}, req={})".format(
-                self.number, self.text[:5], self.req)
+    def __str__(self):
+        return "<Citation {} (text={}, req={})>".format(
+                self.number, self.text[:10], self.req)
 
 
     #def trainMode(self,date,req,timereq):
@@ -15,4 +15,3 @@ class citation:
 
     #def trainMode(self,req):
     #    self.req=req
-

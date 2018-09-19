@@ -17,3 +17,5 @@ with open('Seneque_4.csv','r') as csv_file:
 with open('Data','wb') as fichier:
     mon_pickler = pickle.Pickler(fichier)
     mon_pickler.dump(Data)
+
+print(Data)
