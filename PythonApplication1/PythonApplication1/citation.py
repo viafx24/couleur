@@ -1,4 +1,5 @@
 from random import randint
+import pickle
 
 class citation:
 
@@ -18,3 +19,7 @@ class citation:
     #def trainMode(self,req):
     #    self.req=req
 
+def Save_Data(Data):
+    with open('Data','wb') as fichier:
+            mon_pickler = pickle.Pickler(fichier)
+            mon_pickler.dump(Data)
