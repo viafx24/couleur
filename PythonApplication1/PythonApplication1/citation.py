@@ -1,9 +1,11 @@
+from random import randint
+
 class citation:
 
     def __init__(self,number,text):
         self.number=number
         self.text=text
-        self.req=1
+        self.req=randint(0,10)
 
     def __repr__(self):
         return "Citation {} (text={}, req={})".format(
