@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0eb37c92-71df-46c1-aaf7-3964bff2983b</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PythonApplication1.py</StartupFile>
+    <StartupFile>Couleur_GUI.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,8 +22,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="citation.py" />
+    <Compile Include="grid.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GUI_2.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="import_csv_seneque_2.py" />
+    <Compile Include="GUI.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GUI_3.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LOGUI.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="OrganizeGUI.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PythonApplication1.py" />
+    <Compile Include="Couleur_GUI.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data" />
