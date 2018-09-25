@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0eb37c92-71df-46c1-aaf7-3964bff2983b</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Couleur_GUI.py</StartupFile>
+    <StartupFile>TestTime.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -43,6 +43,9 @@
     </Compile>
     <Compile Include="PythonApplication1.py" />
     <Compile Include="Couleur_GUI.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestTime.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
