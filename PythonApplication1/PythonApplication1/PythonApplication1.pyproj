@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0eb37c92-71df-46c1-aaf7-3964bff2983b</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>TestTime.py</StartupFile>
+    <StartupFile>TestListOfList.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -36,6 +36,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LOGUI.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestListOfList.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="OrganizeGUI.py">

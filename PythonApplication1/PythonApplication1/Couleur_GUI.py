@@ -4,6 +4,7 @@ import pickle
 from operator import attrgetter
 from random import shuffle, sample
 from citation import Save_Data
+import time
 
 import tkinter.font as tkFont
 
@@ -42,24 +43,29 @@ def Load_Data_And_Shuffle():
 
     Shuffle_Indices=sample(Get_All_Indice, len(Get_All_Indice))
     
-    labelnumber.config(text=Data[Shuffle_Indices[iteration]].number)
-    label.config(text=str(iteration+1)+"/"+str(Num_Value))
+    #labelnumber.config(text=Data[Shuffle_Indices[iteration]].number)
+    label.config(text=str(iteration)+"/"+str(Num_Value))
 
 def Next_Iteration():
-    global Shuffle_Indices, iteration, Data, Num_Value
-    iteration+=1
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
+    
     Text.delete(1.0, END)
     labelnumber.config(text=Data[Shuffle_Indices[iteration]].number)
+    tic = time.time()
     label.config(text=str(iteration+1)+"/"+str(Num_Value))
+    iteration+=1
     
 def PlusOne():
-    global Shuffle_Indices, iteration, Data, Num_Value
+    global Shuffle_Indices, iteration, Data, Num_Value,tic,toc
+    toc = time.time()
+    print(toc-tic)
     Text.delete(1.0, END)
     Text.insert(END, Data[Shuffle_Indices[iteration]].text)
     Data[Shuffle_Indices[iteration]].req+=1
 
 def MinusOne():
-    global Shuffle_Indices, iteration, Data, Num_Value
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
+    toc = time.time()
     Text.delete(1.0, END)
     Text.insert(END, Data[Shuffle_Indices[iteration]].text)
     Data[Shuffle_Indices[iteration]].req-=1
