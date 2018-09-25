@@ -83,6 +83,9 @@ root = Tk()
 root.columnconfigure(1, weight=1)
 root.rowconfigure(1, weight=1)
 
+root.configure(bg='black')
+#root.configure(fg='white')
+
 root.state('zoomed')
 #helv36 = tkFont.Font(family='Helvetica', size=36, weight='bold')
 #helv36 = tkFont.Font(family='Arial', size=36, weight='bold')
@@ -96,13 +99,13 @@ Shuffle_Indices=list()
 iteration=0
 
 
-label = Label(text=10,font=helv36)
+label = Label(text=10,font=helv36,bg='black',fg='white')
 value = DoubleVar(root)
 value.set(10)
 Num_Value=int(value.get())
-labelnumber = Label(font=helv36)
-labelSRR = Label(font=helv36)
-labelTRT = Label(font=helv36)
+labelnumber = Label(font=helv36,bg='black',fg='white')
+labelSRR = Label(font=helv36,bg='black',fg='white')
+labelTRT = Label(font=helv36,bg='black',fg='white')
 #label = Label(font=helv36)
 
 spinbox = Spinbox(root, textvariable=value, from_=10, to=300, increment=10, font=helv36,bg='black',fg='white')
@@ -110,12 +113,12 @@ spinbox = Spinbox(root, textvariable=value, from_=10, to=300, increment=10, font
 spinbox.config(command=update_label)
 
 
-button = Button(root, text='Load',command=Load_Data_And_Shuffle,font=helv36)
-buttonnext = Button(root, text='Next',command=Next_Iteration,font=helv36)
-buttonPlus1=Button(root,text='+1',command=PlusOne,font=helv36)
+button = Button(root, text='Load',command=Load_Data_And_Shuffle,font=helv36,bg='black',fg='white')
+buttonnext = Button(root, text='Next',command=Next_Iteration,font=helv36,bg='black',fg='white')
+buttonPlus1=Button(root,text='+1',command=PlusOne,font=helv36,bg='black',fg='white')
 buttonMinus1=Button(root,text='-1',command=MinusOne,font=helv36,bg='black',fg='white')
 
-Text = Text(root, height=8, width=50, font=helv36, bg='black',fg='white')
+Text = Text(root, height=8, width=50, font=helv36, bg='black',fg='white',borderwidth=0,wrap=WORD)
 
 
 spinbox.grid(row=0, column=0)
@@ -126,12 +129,12 @@ labelnumber.grid(row=1,columnspan=4)
 
 Text.grid(row=2,column=0,columnspan=4)
 
-labelSRR.grid(row=3,column=0)
-labelTRT.grid(row=3,column=1)
-buttonPlus1.grid(row=4,column=0)
-buttonnext.grid(row=4,column=1)
+labelSRR.grid(row=1,column=0)
+labelTRT.grid(row=1,column=1)
+buttonPlus1.grid(row=4,column=0,columnspan=4,sticky=W, pady=30)
+buttonnext.grid(row=4,column=0,columnspan=4)
 
-buttonMinus1.grid(row=4,column=2)
+buttonMinus1.grid(row=4,column=0,columnspan=4,sticky=E)
 root.mainloop()
 
 
