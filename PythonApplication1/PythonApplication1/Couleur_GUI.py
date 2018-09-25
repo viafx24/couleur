@@ -27,7 +27,7 @@ def update_label():
 
 def Load_Data_And_Shuffle():
 
-    global Shuffle_Indices, iteration, Data, Num_Value
+    global Shuffle_Indices, iteration, Data, Num_Value,tic, toc
 
 
     with open('Data','rb') as fichier:
@@ -43,17 +43,19 @@ def Load_Data_And_Shuffle():
 
     Shuffle_Indices=sample(Get_All_Indice, len(Get_All_Indice))
     
-    #labelnumber.config(text=Data[Shuffle_Indices[iteration]].number)
-    label.config(text=str(iteration)+"/"+str(Num_Value))
+    label.config(text=str(iteration+1)+"/"+str(Num_Value))
+    labelnumber.config(text=Data[Shuffle_Indices[iteration]].number)
+    tic = time.time()
+    
 
 def Next_Iteration():
     global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
-    
+    iteration+=1
     Text.delete(1.0, END)
     labelnumber.config(text=Data[Shuffle_Indices[iteration]].number)
     tic = time.time()
     label.config(text=str(iteration+1)+"/"+str(Num_Value))
-    iteration+=1
+    
     
 def PlusOne():
     global Shuffle_Indices, iteration, Data, Num_Value,tic,toc
@@ -77,8 +79,17 @@ def MinusOne():
 
 
 root = Tk()
+
+root.columnconfigure(1, weight=1)
+root.rowconfigure(1, weight=1)
+
 root.state('zoomed')
-helv36 = tkFont.Font(family='Helvetica', size=36, weight='bold')
+#helv36 = tkFont.Font(family='Helvetica', size=36, weight='bold')
+#helv36 = tkFont.Font(family='Arial', size=36, weight='bold')
+#helv36 = tkFont.Font(family='Arial', size=36)
+#helv36 = tkFont.Font(family='Calibri', size=36)
+helv36 = tkFont.Font(family='Comic Sans MS', size=36)
+
 #root.attributes("-fullscreen", True)
 
 Shuffle_Indices=list()
@@ -89,12 +100,12 @@ label = Label(text=10,font=helv36)
 value = DoubleVar(root)
 value.set(10)
 Num_Value=int(value.get())
-labelnumber = Label(text='',font=helv36)
-labelSRR = Label(text='',font=helv36)
-labelTRT = Label(text='',font=helv36)
+labelnumber = Label(font=helv36)
+labelSRR = Label(font=helv36)
+labelTRT = Label(font=helv36)
 #label = Label(font=helv36)
 
-spinbox = Spinbox(root, textvariable=value, from_=10, to=300, increment=10, font=helv36)
+spinbox = Spinbox(root, textvariable=value, from_=10, to=300, increment=10, font=helv36,bg='black',fg='white')
 #spinbox.config(command=partial(update_label, spinbox, label, value, iteration))
 spinbox.config(command=update_label)
 
@@ -102,25 +113,25 @@ spinbox.config(command=update_label)
 button = Button(root, text='Load',command=Load_Data_And_Shuffle,font=helv36)
 buttonnext = Button(root, text='Next',command=Next_Iteration,font=helv36)
 buttonPlus1=Button(root,text='+1',command=PlusOne,font=helv36)
-buttonMinus1=Button(root,text='-1',command=MinusOne,font=helv36)
+buttonMinus1=Button(root,text='-1',command=MinusOne,font=helv36,bg='black',fg='white')
 
-Text = Text(root, height=10, width=100)
+Text = Text(root, height=8, width=50, font=helv36, bg='black',fg='white')
 
 
 spinbox.grid(row=0, column=0)
 label.grid(row=0, column=1)
 button.grid(row=0,column=3)
 
-labelnumber.grid(row=1,column=0)
+labelnumber.grid(row=1,columnspan=4)
 
-Text.grid(row=3,column=0,columnspan=4)
+Text.grid(row=2,column=0,columnspan=4)
 
-labelSRR.grid(row=4,column=0)
-labelTRT.grid(row=4,column=1)
-buttonPlus1.grid(row=5,column=0)
-buttonnext.grid(row=5,column=1)
+labelSRR.grid(row=3,column=0)
+labelTRT.grid(row=3,column=1)
+buttonPlus1.grid(row=4,column=0)
+buttonnext.grid(row=4,column=1)
 
-buttonMinus1.grid(row=5,column=2)
+buttonMinus1.grid(row=4,column=2)
 root.mainloop()
 
 
