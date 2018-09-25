@@ -35,7 +35,7 @@ def Load_Data_And_Shuffle():
         Data=mon_depickler.load()
 
 
-    Data_Sorted=sorted(Data,key=attrgetter("req"))
+    Data_Sorted=sorted(Data,key=attrgetter("SRR"))
     Get_All_Indice=list()
 
     for n in range(0,Num_Value):
@@ -58,45 +58,23 @@ def Next_Iteration():
 def PlusOne():
     global Shuffle_Indices, iteration, Data, Num_Value,tic,toc
     toc = time.time()
-    print(toc-tic)
     Text.delete(1.0, END)
     Text.insert(END, Data[Shuffle_Indices[iteration]].text)
-    Data[Shuffle_Indices[iteration]].req+=1
+    Data[Shuffle_Indices[iteration]].SRR+=1
+    Data[Shuffle_Indices[iteration]].TRT=round(toc-tic,1)
+    labelSRR.config(text=str(Data[Shuffle_Indices[iteration]].SRR))
+    labelTRT.config(text=str(Data[Shuffle_Indices[iteration]].TRT))
 
 def MinusOne():
     global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
     toc = time.time()
     Text.delete(1.0, END)
     Text.insert(END, Data[Shuffle_Indices[iteration]].text)
-    Data[Shuffle_Indices[iteration]].req-=1
+    Data[Shuffle_Indices[iteration]].SRR-=1
+    Data[Shuffle_Indices[iteration]].TRT=round(toc-tic,1)
+    labelSRR.config(text=str(Data[Shuffle_Indices[iteration]].SRR))
+    labelTRT.config(text=str(Data[Shuffle_Indices[iteration]].TRT))
 
-
-        #print(Get_All_Indice)
-
-    #Shuffle_Indices=sample(Get_All_Indice, len(Get_All_Indice))
-    #print(Shuffle_Indices)
-    #Text.delete(1.0, END)
-    #Text.insert(END, Data[Shuffle_Indices[iteration]].text)
-    #iteration+=1
-
-    #for n in Shuffle_Indices:
-    #    print(n)
-    #    Answer=input("tape o/n/*:")
-    #    if Answer=="o":
-
-    #        Data[n].req+=1
-    #        print("Bien joué! Nouveau Req pour {}: {}".format(n,Data[n].req))
-    #        Save_Data(Data)
-    #        print("data saved")
-    #    elif Answer=="n":
-
-    #        Data[n].req-=1
-    #        print("Raté! Nouveau Req pour {}: {}".format(n,Data[n].req))
-    #        Save_Data(Data)
-    #        print("data saved")
-    #    else:
-    #        print("sortie de l'exercice")
-    #        break
 
 root = Tk()
 root.state('zoomed')
@@ -112,6 +90,8 @@ value = DoubleVar(root)
 value.set(10)
 Num_Value=int(value.get())
 labelnumber = Label(text='',font=helv36)
+labelSRR = Label(text='',font=helv36)
+labelTRT = Label(text='',font=helv36)
 #label = Label(font=helv36)
 
 spinbox = Spinbox(root, textvariable=value, from_=10, to=300, increment=10, font=helv36)
@@ -129,12 +109,45 @@ Text = Text(root, height=10, width=100)
 
 spinbox.grid(row=0, column=0)
 label.grid(row=0, column=1)
-button.grid(row=0,column=2)
-buttonnext.grid(row=0,column=3)
+button.grid(row=0,column=3)
+
 labelnumber.grid(row=1,column=0)
+
 Text.grid(row=3,column=0,columnspan=4)
-buttonPlus1.grid(row=4,column=0)
-buttonMinus1.grid(row=4,column=1)
+
+labelSRR.grid(row=4,column=0)
+labelTRT.grid(row=4,column=1)
+buttonPlus1.grid(row=5,column=0)
+buttonnext.grid(row=5,column=1)
+
+buttonMinus1.grid(row=5,column=2)
 root.mainloop()
 
 
+
+        #print(Get_All_Indice)
+
+    #Shuffle_Indices=sample(Get_All_Indice, len(Get_All_Indice))
+    #print(Shuffle_Indices)
+    #Text.delete(1.0, END)
+    #Text.insert(END, Data[Shuffle_Indices[iteration]].text)
+    #iteration+=1
+
+    #for n in Shuffle_Indices:
+    #    print(n)
+    #    Answer=input("tape o/n/*:")
+    #    if Answer=="o":
+
+    #        Data[n].SRR+=1
+    #        print("Bien joué! Nouveau Req pour {}: {}".format(n,Data[n].SRR))
+    #        Save_Data(Data)
+    #        print("data saved")
+    #    elif Answer=="n":
+
+    #        Data[n].SRR-=1
+    #        print("Raté! Nouveau Req pour {}: {}".format(n,Data[n].SRR))
+    #        Save_Data(Data)
+    #        print("data saved")
+    #    else:
+    #        print("sortie de l'exercice")
+    #        break

@@ -6,11 +6,12 @@ class citation:
     def __init__(self,number,text):
         self.number=number
         self.text=text
-        self.req=randint(0,10)
+        self.SRR=randint(0,10)
+        self.TRT=0
 
     def __repr__(self):
-        return "Citation {} (text={}, req={})".format(
-                self.number, self.text[:5], self.req)
+        return "Citation {} (text={}, SRR={}, TRT={})".format(
+                self.number, self.text[:5], self.SRR, self.TRT)
 
 
     #def trainMode(self,date,req,timereq):
