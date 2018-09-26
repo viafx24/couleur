@@ -28,7 +28,7 @@
     <Compile Include="GUI_2.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="import_csv_seneque_2.py" />
+    <Compile Include="import_csv_seneque_test_taille.py" />
     <Compile Include="GUI.py">
       <SubType>Code</SubType>
     </Compile>
