@@ -38,17 +38,11 @@
     <Compile Include="LOGUI.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TestListOfList.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="OrganizeGUI.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PythonApplication1.py" />
     <Compile Include="Couleur_GUI.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TestTime.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
