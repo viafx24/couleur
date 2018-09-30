@@ -4,7 +4,7 @@ from citation import citation
 
 Data=list()
 i=0
-with open('Seneque_4.csv','r') as csv_file:
+with open('Seneque_Pour_Couleur_2.csv','r') as csv_file:
     csv_reader = csv.reader(csv_file,delimiter='\t')
 
     for line in csv_reader:

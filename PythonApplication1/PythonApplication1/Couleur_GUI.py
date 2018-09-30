@@ -1,11 +1,9 @@
 from tkinter import *
 import pickle
 from operator import attrgetter
-from random import shuffle, sample
+from random import sample
 import time
 import tkinter.font as tkFont
-
-from citation import Save_Data
 
 def update_label():
     global Num_Value
@@ -26,8 +24,9 @@ def update_label():
 
 def Load_Data_And_Shuffle():
 
-    global Shuffle_Indices, iteration, Data, Num_Value,tic, toc
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
 
+    iteration=0
 
     with open('Data','rb') as fichier:
         mon_depickler = pickle.Unpickler(fichier)
@@ -67,28 +66,24 @@ def PlusOne():
     toc = time.time()
     Text.delete(1.0, END)
     Text.insert(END, Data[Shuffle_Indices[iteration]].text)
-    if len(Data[Shuffle_Indices[iteration]].text)>400:
-        Text.config(font=helv18)
-    else:
-        Text.config(font=helv24)
+    
 
     Data[Shuffle_Indices[iteration]].SRR+=1
     Data[Shuffle_Indices[iteration]].TRT=round(toc-tic,1)
     labelSRR.config(text=str(Data[Shuffle_Indices[iteration]].SRR))
     labelTRT.config(text=str(Data[Shuffle_Indices[iteration]].TRT))
 
-    buttonnext.config(state=NORMAL)
+    if iteration == Num_Value-1:  
+         buttonnext.config(state=DISABLED)
+    else:
+        buttonnext.config(state=NORMAL)
+    Save_Data(Data)
 
 def MinusOne():
     global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
     toc = time.time()
     Text.delete(1.0, END)
     Text.insert(END, Data[Shuffle_Indices[iteration]].text)
-
-    if len(Data[Shuffle_Indices[iteration]].text)>400:
-        Text.config(font=helv18)
-    else:
-        Text.config(font=helv24)
 
 
     Data[Shuffle_Indices[iteration]].SRR-=1
@@ -97,6 +92,19 @@ def MinusOne():
     labelTRT.config(text=str(Data[Shuffle_Indices[iteration]].TRT))
 
     buttonnext.config(state=NORMAL)
+
+    if iteration == Num_Value-1:  
+         buttonnext.config(state=DISABLED)
+    else:
+        buttonnext.config(state=NORMAL)
+
+    Save_Data(Data)
+
+
+def Save_Data(Data):
+    with open('Data','wb') as fichier:
+            mon_pickler = pickle.Pickler(fichier)
+            mon_pickler.dump(Data)
 
 
 root = Tk()
@@ -120,7 +128,7 @@ helv18 = tkFont.Font(family='Comic Sans MS', size=18)
 #root.attributes("-fullscreen", True)
 
 Shuffle_Indices=list()
-iteration=0
+
 
 
 label = Label(text=10,font=helv24,bg='black',fg='white')
@@ -142,12 +150,12 @@ buttonnext = Button(root, text='         Next         ',command=Next_Iteration,f
 buttonPlus1=Button(root,text='         +1         ',command=PlusOne,font=helv36,bg='black',fg='white')
 buttonMinus1=Button(root,text='         -1         ',command=MinusOne,font=helv36,bg='black',fg='white')
 
-Text = Text(root, height=7, width=70, font=helv18, bg='black',fg='white',borderwidth=0,wrap=WORD)
+Text = Text(root, height=9, width=70, font=helv18, bg='black',fg='white',borderwidth=0,wrap=WORD)
 
 
 spinbox.grid(row=0, column=0, columnspan=4,sticky=W)
 label.grid(row=0, column=0, columnspan=4)
-button.grid(row=0,column=0, columnspan=4,sticky=E,pady=30,padx=30)
+button.grid(row=0,column=0, columnspan=4,sticky=E,pady=10,padx=30)
 
 labelnumber.grid(row=1,columnspan=4)
 
