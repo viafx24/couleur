@@ -22,26 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="citation.py" />
-    <Compile Include="grid.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GUI_2.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="import_csv_seneque_test_taille.py" />
-    <Compile Include="GUI.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GUI_3.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LOGUI.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="OrganizeGUI.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PythonApplication1.py" />
     <Compile Include="Couleur_GUI.py">
       <SubType>Code</SubType>
     </Compile>
