@@ -2,6 +2,7 @@ from random import randint
 import pickle
 
 class citation:
+    # main class to structure the data
 
     def __init__(self,number,text):
         self.number=number

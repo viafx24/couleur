@@ -2,8 +2,10 @@ import csv
 import pickle
 from citation import citation
 
+# creation of the main list of citation
 Data=list()
 i=0
+# import the data from the csv
 with open('Seneque_Pour_Couleur_2.csv','r') as csv_file:
     csv_reader = csv.reader(csv_file,delimiter='\t')
 
@@ -12,19 +14,17 @@ with open('Seneque_Pour_Couleur_2.csv','r') as csv_file:
         # print(Data[i].text)
         i+=1
 
+# chechinf for the place on the screen        
+#Data[129].SRR=-1
+#Data[119].SRR=-1
+#Data[135].SRR=-1
+#Data[197].SRR=-1
+#Data[96].SRR=-1
 
-        
-Data[129].SRR=-1
-Data[119].SRR=-1
-Data[135].SRR=-1
-Data[197].SRR=-1
-Data[96].SRR=-1
-
-# print(Data[240].text)
-# print(Data[240].number)      
+# write on a file "Data"     
 with open('Data','wb') as fichier:
     mon_pickler = pickle.Pickler(fichier)
     mon_pickler.dump(Data)
 
-
+#show the result
 print(Data)
