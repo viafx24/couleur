@@ -7,7 +7,7 @@ class citation:
     def __init__(self,number,text):
         self.number=number
         self.text=text
-        self.SRR=randint(0,10)
+        self.SRR=0
         self.TRT=0
 
     def __repr__(self):

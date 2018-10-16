@@ -4,6 +4,7 @@ from operator import attrgetter
 from random import sample
 import time
 import tkinter.font as tkFont
+import citation
 
 def update_label():
     # update the number chose in the spinbox in the top centered label 
@@ -25,7 +26,12 @@ def Load_Data_And_Shuffle():
         mon_depickler = pickle.Unpickler(fichier)
         Data=mon_depickler.load()
 
+# fonction to sort the data: the first (second) sort  the data in reverse order (time) and then function of score(SRR)
+
+    Data.sort(key=attrgetter("TRT"), reverse=True)
     Data_Sorted=sorted(Data,key=attrgetter("SRR"))
+
+    # print(Data_Sorted)
     Get_All_Indice=list()
 
     # sort the data to find the lowest scoer
@@ -33,7 +39,9 @@ def Load_Data_And_Shuffle():
         Get_All_Indice.append(int(Data_Sorted[n].number))
 
     # shuffle the indices to make the choice random
-    Shuffle_Indices=sample(Get_All_Indice, len(Get_All_Indice))    
+    Shuffle_Indices=sample(Get_All_Indice, len(Get_All_Indice))
+    
+    Text.delete(1.0, END)# clear text if the user launchs a second batch of citations.
     label.config(text=str(iteration+1)+"/"+str(Num_Value))
     labelnumber.config(text=Data[Shuffle_Indices[iteration]].number,font=helv48)
     tic = time.time() # to know how much time it take to find the citation.
