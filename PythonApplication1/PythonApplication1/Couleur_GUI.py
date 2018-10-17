@@ -31,7 +31,7 @@ def Load_Data_And_Shuffle():
     Data.sort(key=attrgetter("TRT"), reverse=True)
     Data_Sorted=sorted(Data,key=attrgetter("SRR"))
 
-    # print(Data_Sorted)
+    print(Data_Sorted)
     Get_All_Indice=list()
 
     # sort the data to find the lowest scoer
@@ -41,6 +41,9 @@ def Load_Data_And_Shuffle():
     # shuffle the indices to make the choice random
     Shuffle_Indices=sample(Get_All_Indice, len(Get_All_Indice))
     
+    print(Shuffle_Indices)
+    print(Data[Shuffle_Indices[iteration]].number)
+
     Text.delete(1.0, END)# clear text if the user launchs a second batch of citations.
     label.config(text=str(iteration+1)+"/"+str(Num_Value))
     labelnumber.config(text=Data[Shuffle_Indices[iteration]].number,font=helv48)
