@@ -97,7 +97,7 @@ def PlusOne():
     
     Text.grid_remove()
     Text.grid()
-    Text.config(height=9)
+    Text.config(height=text_height)
     Text.delete(1.0, END)
     Text.insert(END, Data[Shuffle_Indices[iteration]].text)
     labelnumber.config(font=helv48)
@@ -126,7 +126,7 @@ def MinusOne():
     Text.grid_remove()
     Text.grid()
 
-    Text.config(height=9)
+    Text.config(height=text_height)
     Text.delete(1.0, END)
     Text.insert(END, Data[Shuffle_Indices[iteration]].text)
     labelnumber.config(font=helv48)
@@ -156,6 +156,16 @@ root.rowconfigure(1, weight=1)
 root.configure(bg='black')
 root.state('zoomed') #full screen
 
+
+screen_height = root.winfo_screenheight()
+
+if screen_height==1050:
+    text_height=16
+else:
+    text_height=9
+
+
+
 #different policies used in the GUI
 helv72= tkFont.Font(family='Comic Sans MS', size=84)
 helv48= tkFont.Font(family='Comic Sans MS', size=48)
@@ -179,7 +189,7 @@ button = Button(root, text='          Load          ',command=Load_Data_And_Shuf
 buttonnext = Button(root, text='         Next         ',command=Next_Iteration,font=helv36,bg='black',fg='white')
 buttonPlus1=Button(root,text='         +1         ',command=PlusOne,font=helv36,bg='black',fg='white')
 buttonMinus1=Button(root,text='         -1         ',command=MinusOne,font=helv36,bg='black',fg='white')
-Text = Text(root, height=9, width=70, font=helv18, bg='black',fg='white',borderwidth=0,wrap=WORD)
+Text = Text(root, height=text_height, width=70, font=helv18, bg='black',fg='white',borderwidth=0,wrap=WORD)
 
 # place of the widgets on th grid
 spinbox.grid(row=0, column=0, columnspan=4,sticky=W)
