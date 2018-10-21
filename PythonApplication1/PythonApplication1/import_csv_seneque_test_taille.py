@@ -12,6 +12,16 @@ with open('Seneque_Pour_Couleur_2.csv','r') as csv_file:
     for line in csv_reader:
         Data.append(citation(line[0],line[1]))
         # print(Data[i].text)
+        if i<101:
+            Data[i].SRR=2
+
+        if i<201 and i>100:
+            Data[i].SRR=1
+       
+        if i<301 and i>200:
+            Data[i].SRR=0
+       
+
         i+=1
 
 # chechinf for the place on the screen        
