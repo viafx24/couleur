@@ -44,12 +44,21 @@ def Load_Data_And_Shuffle():
     # print(Shuffle_Indices)
     # print(Data[Shuffle_Indices[iteration]].number)
 
+   
+    
+    
     Text.delete(1.0, END)# clear text if the user launchs a second batch of citations.
+    Text.config(height=2)
+
     label.config(text=str(iteration+1)+"/"+str(Num_Value))
+
+    labelnumber.grid_remove()
+    labelnumber.grid()
+
     labelnumber.config(text=Data[Shuffle_Indices[iteration]].number,font=helv72)
 
-
-    Text.grid_remove()
+    labelSRR.config(text='')
+    labelTRT.config(text='')
     #Text.insert(END, Data[Shuffle_Indices[iteration]].number)
     #Text.config(font=helv12)
 
@@ -63,7 +72,9 @@ def Next_Iteration():
     global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
     iteration+=1
     
-    Text.grid_remove()
+    #Text.grid_remove()
+    Text.delete(1.0, END)
+    Text.config(height=2)
     labelnumber.grid_remove()
     labelnumber.grid()
     labelnumber.config(text=Data[Shuffle_Indices[iteration]].number)
@@ -83,11 +94,16 @@ def PlusOne():
 
     global Shuffle_Indices, iteration, Data, Num_Value,tic,toc
     toc = time.time()
+    
+    Text.grid_remove()
     Text.grid()
+    Text.config(height=9)
     Text.delete(1.0, END)
     Text.insert(END, Data[Shuffle_Indices[iteration]].text)
     labelnumber.config(font=helv48)
     
+
+
     Data[Shuffle_Indices[iteration]].SRR+=1
     Data[Shuffle_Indices[iteration]].TRT=round(toc-tic,1)
     labelSRR.config(text=str(Data[Shuffle_Indices[iteration]].SRR))
@@ -106,7 +122,11 @@ def MinusOne():
 
     global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
     toc = time.time()
+
+    Text.grid_remove()
     Text.grid()
+
+    Text.config(height=9)
     Text.delete(1.0, END)
     Text.insert(END, Data[Shuffle_Indices[iteration]].text)
     labelnumber.config(font=helv48)
