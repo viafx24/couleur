@@ -22,11 +22,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="citation.py" />
-    <Compile Include="import_csv_seneque_test_taille.py" />
+    <Compile Include="Change_Data.py" />
     <Compile Include="Couleur_GUI.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="module1.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="module2.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="module3.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="testGUIMatplotlibComboBox.py" />
+    <Compile Include="windowsTKMatPlotLib.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestGUIMatPlotLib4.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

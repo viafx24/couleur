@@ -64,7 +64,11 @@ def Load_Data_And_Shuffle():
 
 
     tic = time.time() # to know how much time it take to find the citation.
-    
+
+    buttonnext.config(state=DISABLED)#disabled the button once every things have been done 
+    buttonStar.config(state=DISABLED)
+    buttonDepreciated.config(state=DISABLED)
+    buttonNormal.config(state=DISABLED)
 
 def Next_Iteration():
 #go to the next iteration (possible only after that the user click on +1 or -1)
@@ -88,6 +92,9 @@ def Next_Iteration():
     labelTRT.config(text='')
 
     buttonnext.config(state=DISABLED)#disabled the button once every things have been done 
+    buttonStar.config(state=DISABLED)
+    buttonDepreciated.config(state=DISABLED)
+    buttonNormal.config(state=DISABLED)
 
 def PlusOne():
 # add +1 in the database on the SRR (the user has found the citation).
@@ -100,20 +107,27 @@ def PlusOne():
     Text.config(height=text_height)
     Text.delete(1.0, END)
     Text.insert(END, Data[Shuffle_Indices[iteration]].text)
+    SetColorText()
+           
     labelnumber.config(font=helv48)
     
-
-
     Data[Shuffle_Indices[iteration]].SRR+=1
     Data[Shuffle_Indices[iteration]].TRT=round(toc-tic,1)
     labelSRR.config(text=str(Data[Shuffle_Indices[iteration]].SRR))
     labelTRT.config(text=str(Data[Shuffle_Indices[iteration]].TRT))
 
     # disabled the button if iteration exeed the number ask in the spinbox
+
+    buttonStar.config(state=NORMAL)
+    buttonDepreciated.config(state=NORMAL)
+    buttonNormal.config(state=NORMAL)
+
     if iteration == Num_Value-1:  
          buttonnext.config(state=DISABLED)
     else:
         buttonnext.config(state=NORMAL)
+
+
 
     Save_Data(Data)
 
@@ -129,6 +143,7 @@ def MinusOne():
     Text.config(height=text_height)
     Text.delete(1.0, END)
     Text.insert(END, Data[Shuffle_Indices[iteration]].text)
+    SetColorText()
     labelnumber.config(font=helv48)
 
     Data[Shuffle_Indices[iteration]].SRR-=1
@@ -136,12 +151,49 @@ def MinusOne():
     labelSRR.config(text=str(Data[Shuffle_Indices[iteration]].SRR))
     labelTRT.config(text=str(Data[Shuffle_Indices[iteration]].TRT))
 
+    buttonStar.config(state=NORMAL)
+    buttonDepreciated.config(state=NORMAL)
+    buttonNormal.config(state=NORMAL)
+
     if iteration == Num_Value-1:  
          buttonnext.config(state=DISABLED)
     else:
         buttonnext.config(state=NORMAL)
 
     Save_Data(Data)
+
+def SetStar():
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
+
+    Data[Shuffle_Indices[iteration]].Emphasis="Star"
+    SetColorText()
+    Save_Data(Data)
+
+def SetDepreciated():
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
+
+    Data[Shuffle_Indices[iteration]].Emphasis="Depreciated"
+    SetColorText()
+    Save_Data(Data)
+
+def SetNormal():
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
+
+    Data[Shuffle_Indices[iteration]].Emphasis="Normal"
+    SetColorText()
+    Save_Data(Data)
+
+
+def SetColorText():
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
+
+    if Data[Shuffle_Indices[iteration]].Emphasis=="Normal":
+        Text.config(foreground="white")
+    if Data[Shuffle_Indices[iteration]].Emphasis=="Star":
+        Text.config(foreground="blue")
+    if Data[Shuffle_Indices[iteration]].Emphasis=="Depreciated":
+        Text.config(foreground="red")
+
 
 def Save_Data(Data):
     #function to save the data
@@ -172,6 +224,7 @@ helv48= tkFont.Font(family='Comic Sans MS', size=48)
 helv36 = tkFont.Font(family='Comic Sans MS', size=36)
 helv24 = tkFont.Font(family='Comic Sans MS', size=24)
 helv18 = tkFont.Font(family='Comic Sans MS', size=18)
+helv12 = tkFont.Font(family='Comic Sans MS', size=12)
 
 # label and spinbow of the GUI
 label = Label(text=10,font=helv24,bg='black',fg='white')
@@ -189,18 +242,30 @@ button = Button(root, text='          Load          ',command=Load_Data_And_Shuf
 buttonnext = Button(root, text='         Next         ',command=Next_Iteration,font=helv36,bg='black',fg='white')
 buttonPlus1=Button(root,text='         +1         ',command=PlusOne,font=helv36,bg='black',fg='white')
 buttonMinus1=Button(root,text='         -1         ',command=MinusOne,font=helv36,bg='black',fg='white')
+
+buttonStar= Button(root, text='S', command=SetStar,font=helv12,bg='black',fg='white')
+buttonDepreciated= Button(root, text='D', command=SetDepreciated,font=helv12,bg='black',fg='white')
+buttonNormal= Button(root, text='N', command=SetNormal,font=helv12,bg='black',fg='white')
+
 Text = Text(root, height=text_height, width=70, font=helv18, bg='black',fg='white',borderwidth=0,wrap=WORD)
 
 # place of the widgets on th grid
 spinbox.grid(row=0, column=0, columnspan=4,sticky=W)
 label.grid(row=0, column=0, columnspan=4)
 button.grid(row=0,column=0, columnspan=4,sticky=E,pady=10,padx=30)
+
 labelnumber.grid(row=1,columnspan=4)
-Text.grid(row=2,column=0,columnspan=4)
 labelSRR.grid(row=1,column=0, columnspan=4,sticky=W, padx=30)
 labelTRT.grid(row=1,column=0, columnspan=4,sticky=E, padx=30)
-buttonPlus1.grid(row=4,column=0,columnspan=4,sticky=W, pady=30, padx=30)
-buttonnext.grid(row=4,column=0,columnspan=4)
-buttonMinus1.grid(row=4,column=0,columnspan=4,sticky=E, pady=30, padx=30)
+
+buttonStar.grid(row=3,column=0,columnspan=4,sticky='es',padx=400)
+buttonNormal.grid(row=4,column=0,columnspan=4,sticky='e',padx=400)
+buttonDepreciated.grid(row=5,column=0,columnspan=4,sticky='en',padx=400)
+
+Text.grid(row=2,column=0,columnspan=4)
+
+buttonPlus1.grid(row=3,column=0,columnspan=4, rowspan=3, sticky=W, pady=30, padx=30)
+buttonnext.grid(row=3,column=0,rowspan=3, columnspan=4)
+buttonMinus1.grid(row=3,column=0,rowspan=3,columnspan=4,sticky=E, pady=30, padx=30)
 
 root.mainloop()
