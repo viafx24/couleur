@@ -2,6 +2,9 @@
 import pickle
 from citation import citation
 
+from datetime import date
+import pandas as pd
+import matplotlib.pyplot as plt
 
 with open('Data_Old','rb') as fichier:
         mon_depickler = pickle.Unpickler(fichier)
@@ -11,8 +14,17 @@ with open('Data_Old','rb') as fichier:
 # creation of the main list of citation
 Data=list()
 Emphasis="Normal"
+
+Date=date.today()
+
+
 for i in range(0,len(Data_Old)):
-     Data.append(citation(Data_Old[i].number,Data_Old[i].text,Data_Old[i].SRR,Data_Old[i].TRT,Emphasis))
+
+     HistListe=[[Date,Data_Old[i].SRR,Data_Old[i].TRT]]
+     Historique=pd.DataFrame(HistListe, columns=['Date','SRR','TRT'])
+     Historique["Date"]=pd.to_datetime(Historique["Date"])
+
+     Data.append(citation(Data_Old[i].number,Data_Old[i].text,Data_Old[i].SRR,Data_Old[i].TRT,Emphasis,Historique))
 
 with open('Data','wb') as fichier:
     mon_pickler = pickle.Pickler(fichier)
@@ -21,6 +33,9 @@ with open('Data','wb') as fichier:
 #show the result
 print(Data)
 
+
+plt.plot(Data[1].Historique["TRT"],Data[1].Historique["SRR"],marker="x")
+plt.show()
 
 #for i in 
 ## import the data from the csv
