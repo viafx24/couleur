@@ -43,9 +43,6 @@ def Load_Data_And_Shuffle():
     
     # print(Shuffle_Indices)
     # print(Data[Shuffle_Indices[iteration]].number)
-
-   
-    
     
     Text.delete(1.0, END)# clear text if the user launchs a second batch of citations.
     Text.config(height=2)
@@ -128,7 +125,7 @@ def PlusOne():
         buttonnext.config(state=NORMAL)
 
 
-
+    AjoutHistorique()
     Save_Data(Data)
 
 def MinusOne():
@@ -159,7 +156,8 @@ def MinusOne():
          buttonnext.config(state=DISABLED)
     else:
         buttonnext.config(state=NORMAL)
-
+    
+    AjoutHistorique()
     Save_Data(Data)
 
 def SetStar():
@@ -194,6 +192,17 @@ def SetColorText():
     if Data[Shuffle_Indices[iteration]].Emphasis=="Depreciated":
         Text.config(foreground="red")
 
+def AjoutHistorique():
+
+    global Shuffle_Indices, iteration, Data 
+
+    Date=date.today()
+    SRR=Data[Shuffle_Indices[iteration]].SRR
+    TRT=Data[Shuffle_Indices[iteration]].TRT
+
+    Ajout = pd.DataFrame([[Date,SRR,TRT]],columns=Data[Shuffle_Indices[iteration]].Historique.columns)  
+    Ajout["Date"]=pd.to_datetime(Ajout["Date"])
+    Data[Shuffle_Indices[iteration]].Historique=Data[Shuffle_Indices[iteration]].Historique.append(Ajout)
 
 def Save_Data(Data):
     #function to save the data
@@ -207,6 +216,12 @@ root.columnconfigure(1, weight=1)
 root.rowconfigure(1, weight=1)
 root.configure(bg='black')
 root.state('zoomed') #full screen
+
+
+def ShowHistorique():
+
+
+
 
 
 screen_height = root.winfo_screenheight()
@@ -247,6 +262,8 @@ buttonStar= Button(root, text='S', command=SetStar,font=helv12,bg='black',fg='wh
 buttonDepreciated= Button(root, text='D', command=SetDepreciated,font=helv12,bg='black',fg='white')
 buttonNormal= Button(root, text='N', command=SetNormal,font=helv12,bg='black',fg='white')
 
+buttonHistorique= Button(root, text='H', command=ShowHistorique,font=helv12,bg='black',fg='white')
+
 Text = Text(root, height=text_height, width=70, font=helv18, bg='black',fg='white',borderwidth=0,wrap=WORD)
 
 # place of the widgets on th grid
@@ -261,6 +278,8 @@ labelTRT.grid(row=1,column=0, columnspan=4,sticky=E, padx=30)
 buttonStar.grid(row=3,column=0,columnspan=4,sticky='es',padx=400)
 buttonNormal.grid(row=4,column=0,columnspan=4,sticky='e',padx=400)
 buttonDepreciated.grid(row=5,column=0,columnspan=4,sticky='en',padx=400)
+
+buttonHistorique.grid(row=3,rowspan=3, column=0, columnspan=4,sticky='w',padx=400)
 
 Text.grid(row=2,column=0,columnspan=4)
 
