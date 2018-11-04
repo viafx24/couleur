@@ -6,6 +6,27 @@ import time
 import tkinter.font as tkFont
 import citation
 
+import tkinter as tk
+from tkinter import ttk
+import matplotlib
+matplotlib.use('TkAgg')
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+import matplotlib.pyplot as plt
+#plt.style.use('seaborn-whitegrid')
+
+from datetime import date
+import pandas as pd
+
+
+
+#matplotlib.rcParams['backend'] = 'Qt5Agg'
+#matplotlib.rcParams['backend.qt5'] = 'PyQt5'
+
+
+
+
+
+
 def update_label():
     # update the number chose in the spinbox in the top centered label 
     global Num_Value
@@ -210,19 +231,77 @@ def Save_Data(Data):
             mon_pickler = pickle.Pickler(fichier)
             mon_pickler.dump(Data)
 
+
+def ShowHistorique():
+
+    global Shuffle_Indices, iteration, Data 
+    global comboExample, fig
+
+    # This defines the Python GUI backend to use for matplotlib
+    #matplotlib.use('TkAgg')
+
+    root.state('zoomed') #full screen
+    windows2 = Toplevel(root)
+    fig = plt.figure(1,figsize=(7,5))
+
+    # Special type of "canvas" to allow for matplotlib graphing
+    canvas = FigureCanvasTkAgg(fig, master=windows2)
+    plot_widget = canvas.get_tk_widget()
+
+    toolbarFrame = tk.Frame(master=windows2)
+    toolbarFrame.grid(row=0,column=0,sticky=tk.W)
+    toolbar = NavigationToolbar2Tk(canvas, toolbarFrame)
+    toolbar.update()
+
+    # Add the plot to the tkinter widget
+    plot_widget.grid(row=1, column=0,columnspan=2)
+
+    # Example data (note: default calculations for angles are in radians)
+
+    Data[Shuffle_Indices[iteration]].Historique.set_index(["Date"],inplace=True)
+    
+    Data[Shuffle_Indices[iteration]].Historique["SRR"].plot(marker='x')
+    fig.canvas.draw()
+
+
+    comboExample = ttk.Combobox(windows2, 
+                                values=[
+                                        "SRR vs. Time", 
+                                        "TRT vs. Time",
+                                        "SRR vs. TRT"])                               
+    comboExample.grid(column=1, row=0, sticky=tk.E)
+    comboExample.current(0)
+    comboExample.bind("<<ComboboxSelected>>", ComboFunctionPlot)
+
+    #windows2.mainloop()
+
+def ComboFunctionPlot(event):
+
+    global comboExample, fig
+    plt.clf()
+    #print(comboExample.get())
+
+    if comboExample.get()=="SRR vs. Time":
+        Data[Shuffle_Indices[iteration]].Historique["SRR"].plot(marker='x')
+        fig.canvas.draw()
+
+    elif comboExample.get()=="TRT vs. Time":
+        Data[Shuffle_Indices[iteration]].Historique["TRT"].plot(marker='x')
+        fig.canvas.draw()
+
+    elif comboExample.get()=="SRR vs. TRT":
+        plt.plot(Data[Shuffle_Indices[iteration]].Historique["SRR"],Data[Shuffle_Indices[iteration]].Historique["TRT"],marker='x')
+        fig.canvas.draw()
+
+
+
+
 # main script creating the GUI
 root = Tk()
 root.columnconfigure(1, weight=1)
 root.rowconfigure(1, weight=1)
 root.configure(bg='black')
 root.state('zoomed') #full screen
-
-
-def ShowHistorique():
-
-
-
-
 
 screen_height = root.winfo_screenheight()
 

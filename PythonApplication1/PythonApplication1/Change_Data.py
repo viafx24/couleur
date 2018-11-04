@@ -15,7 +15,7 @@ with open('Data_Old','rb') as fichier:
 Data=list()
 Emphasis="Normal"
 
-Date=date.today()
+Date=date(2018,10,28)
 
 
 for i in range(0,len(Data_Old)):
