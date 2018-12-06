@@ -17,15 +17,8 @@ import matplotlib.pyplot as plt
 from datetime import date
 import pandas as pd
 
-
-
 #matplotlib.rcParams['backend'] = 'Qt5Agg'
 #matplotlib.rcParams['backend.qt5'] = 'PyQt5'
-
-
-
-
-
 
 def update_label():
     # update the number chose in the spinbox in the top centered label 
@@ -34,7 +27,7 @@ def update_label():
     Num_Value=int(value.get()) # get the value of the spinbox
     label.config(text=str(Num_Value)) #show itin the label
 
-def Load_Data_And_Shuffle():
+def Sort_Data():
 
     # load the data and choose randomly indices (the number chose in the spinob) among the lowest score (SRR)
 
@@ -65,8 +58,8 @@ def Load_Data_And_Shuffle():
     # print(Shuffle_Indices)
     # print(Data[Shuffle_Indices[iteration]].number)
     
-    Text.delete(1.0, END)# clear text if the user launchs a second batch of citations.
-    Text.config(height=2)
+    Text1.delete(1.0, END)# clear text if the user launchs a second batch of citations.
+    Text1.config(height=2)
 
     label.config(text=str(iteration+1)+"/"+str(Num_Value))
 
@@ -88,6 +81,120 @@ def Load_Data_And_Shuffle():
     buttonDepreciated.config(state=DISABLED)
     buttonNormal.config(state=DISABLED)
 
+def Secured_Rand_Data():
+
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
+
+    Shuffle_Indices=list()
+    iteration=0
+
+    with open('Data','rb') as fichier:
+        mon_depickler = pickle.Unpickler(fichier)
+        Data=mon_depickler.load()
+
+    Get_All_Indice=list()
+
+    # sort the data to find the lowest score
+    for n in range(0,300):
+        Get_All_Indice.append(int(Data[n].number))
+
+    # shuffle the indices to make the choice random
+    Shuffle_Indices_All=sample(Get_All_Indice, len(Get_All_Indice))
+    Shuffle_Indices=Shuffle_Indices_All[0:Num_Value]
+    
+    Secured_Random_Key()
+    # print(Shuffle_Indices)
+    # print(Data[Shuffle_Indices[iteration]].number)
+    
+    Text1.delete(1.0, END)# clear text if the user launchs a second batch of citations.
+    Text1.config(height=2)
+
+    label.config(text=str(iteration+1)+"/"+str(Num_Value))
+
+    labelnumber.grid_remove()
+    labelnumber.grid()
+
+    labelnumber.config(text=Data[Shuffle_Indices[iteration]].number,font=helv72)
+
+    labelSRR.config(text='')
+    labelTRT.config(text='')
+    #Text.insert(END, Data[Shuffle_Indices[iteration]].number)
+    #Text.config(font=helv12)
+
+
+    tic = time.time() # to know how much time it take to find the citation.
+
+    buttonnext.config(state=DISABLED)#disabled the button once every things have been done 
+    buttonStar.config(state=DISABLED)
+    buttonDepreciated.config(state=DISABLED)
+    buttonNormal.config(state=DISABLED)
+
+    
+
+
+def Secured_Random_Key():
+
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc, labelList, Text2 
+
+    windows3 = Toplevel(root, bg='black')
+
+    
+    Text2 = Text(windows3, height=text_height, width=120, font=helv12, bg='black',fg='white',borderwidth=0,wrap=WORD)
+
+    
+    Text2.insert(END, Shuffle_Indices)
+    Text2.grid(row=0, column=0, columnspan=4)
+
+    #labelList = Label(windows3,font=helv8)
+    #labelList.config(text=str(Shuffle_Indices))
+    #labelList.grid(row=0, column=0, columnspan=4)
+
+    buttonSecured=Button(windows3,text='         +1         ',command=PlusOneSecured,font=helv24,bg='black',fg='white')
+    buttonSecured.grid(row=1, column=0, columnspan=4)
+
+def PlusOneSecured():   
+
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc, labelList, Text2
+
+    for n in range(0,len(Shuffle_Indices)):
+
+        if Shuffle_Indices[n]<290:
+            Shuffle_Indices[n]=Shuffle_Indices[n]+1
+
+    #labelList.config(text=str(Shuffle_Indices))
+
+    Text2.delete(1.0, END)
+    Text2.insert(END, Shuffle_Indices)
+
+
+
+    Text1.delete(1.0, END)# clear text if the user launchs a second batch of citations.
+    Text1.config(height=2)
+
+    label.config(text=str(iteration+1)+"/"+str(Num_Value))
+
+    labelnumber.grid_remove()
+    labelnumber.grid()
+
+    labelnumber.config(text=Data[Shuffle_Indices[iteration]].number,font=helv72)
+
+    labelSRR.config(text='')
+    labelTRT.config(text='')
+    #Text.insert(END, Data[Shuffle_Indices[iteration]].number)
+    #Text.config(font=helv12)
+
+
+    tic = time.time() # to know how much time it take to find the citation.
+
+    buttonnext.config(state=DISABLED)#disabled the button once every things have been done 
+    buttonStar.config(state=DISABLED)
+    buttonDepreciated.config(state=DISABLED)
+    buttonNormal.config(state=DISABLED)
+
+
+
+
+
 def Next_Iteration():
 #go to the next iteration (possible only after that the user click on +1 or -1)
 
@@ -95,8 +202,8 @@ def Next_Iteration():
     iteration+=1
     
     #Text.grid_remove()
-    Text.delete(1.0, END)
-    Text.config(height=2)
+    Text1.delete(1.0, END)
+    Text1.config(height=2)
     labelnumber.grid_remove()
     labelnumber.grid()
     labelnumber.config(text=Data[Shuffle_Indices[iteration]].number)
@@ -120,11 +227,11 @@ def PlusOne():
     global Shuffle_Indices, iteration, Data, Num_Value,tic,toc
     toc = time.time()
     
-    Text.grid_remove()
-    Text.grid()
-    Text.config(height=text_height)
-    Text.delete(1.0, END)
-    Text.insert(END, Data[Shuffle_Indices[iteration]].text)
+    Text1.grid_remove()
+    Text1.grid()
+    Text1.config(height=text_height)
+    Text1.delete(1.0, END)
+    Text1.insert(END, Data[Shuffle_Indices[iteration]].text)
     SetColorText()
            
     labelnumber.config(font=helv48)
@@ -155,12 +262,12 @@ def MinusOne():
     global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
     toc = time.time()
 
-    Text.grid_remove()
-    Text.grid()
+    Text1.grid_remove()
+    Text1.grid()
 
-    Text.config(height=text_height)
-    Text.delete(1.0, END)
-    Text.insert(END, Data[Shuffle_Indices[iteration]].text)
+    Text1.config(height=text_height)
+    Text1.delete(1.0, END)
+    Text1.insert(END, Data[Shuffle_Indices[iteration]].text)
     SetColorText()
     labelnumber.config(font=helv48)
 
@@ -207,11 +314,11 @@ def SetColorText():
     global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
 
     if Data[Shuffle_Indices[iteration]].Emphasis=="Normal":
-        Text.config(foreground="white")
+        Text1.config(foreground="white")
     if Data[Shuffle_Indices[iteration]].Emphasis=="Star":
-        Text.config(foreground="blue")
+        Text1.config(foreground="blue")
     if Data[Shuffle_Indices[iteration]].Emphasis=="Depreciated":
-        Text.config(foreground="red")
+        Text1.config(foreground="red")
 
 def AjoutHistorique():
 
@@ -319,6 +426,7 @@ helv36 = tkFont.Font(family='Comic Sans MS', size=36)
 helv24 = tkFont.Font(family='Comic Sans MS', size=24)
 helv18 = tkFont.Font(family='Comic Sans MS', size=18)
 helv12 = tkFont.Font(family='Comic Sans MS', size=12)
+helv8 = tkFont.Font(family='Comic Sans MS', size=8)
 
 # label and spinbow of the GUI
 label = Label(text=10,font=helv24,bg='black',fg='white')
@@ -332,7 +440,8 @@ spinbox = Spinbox(root, textvariable=value, from_=10, to=300, increment=10, font
 spinbox.config(command=update_label)
 
 # configuration of the buttons and the text box
-button = Button(root, text='          Load          ',command=Load_Data_And_Shuffle,font=helv24,bg='black',fg='white')
+buttonSort = Button(root, text='    Sort    ',command=Sort_Data,font=helv24,bg='black',fg='white')
+buttonRand = Button(root, text='    Rand    ',command=Secured_Rand_Data,font=helv24,bg='black',fg='white')
 buttonnext = Button(root, text='         Next         ',command=Next_Iteration,font=helv36,bg='black',fg='white')
 buttonPlus1=Button(root,text='         +1         ',command=PlusOne,font=helv36,bg='black',fg='white')
 buttonMinus1=Button(root,text='         -1         ',command=MinusOne,font=helv36,bg='black',fg='white')
@@ -343,12 +452,13 @@ buttonNormal= Button(root, text='N', command=SetNormal,font=helv12,bg='black',fg
 
 buttonHistorique= Button(root, text='H', command=ShowHistorique,font=helv12,bg='black',fg='white')
 
-Text = Text(root, height=text_height, width=70, font=helv18, bg='black',fg='white',borderwidth=0,wrap=WORD)
+Text1 = Text(root, height=text_height, width=70, font=helv18, bg='black',fg='white',borderwidth=0,wrap=WORD)
 
 # place of the widgets on th grid
 spinbox.grid(row=0, column=0, columnspan=4,sticky=W)
 label.grid(row=0, column=0, columnspan=4)
-button.grid(row=0,column=0, columnspan=4,sticky=E,pady=10,padx=30)
+buttonSort.grid(row=0,column=0, columnspan=4,sticky=E,pady=10,padx=250)
+buttonRand.grid(row=0,column=0, columnspan=4,sticky=E,pady=10,padx=30)
 
 labelnumber.grid(row=1,columnspan=4)
 labelSRR.grid(row=1,column=0, columnspan=4,sticky=W, padx=30)
@@ -360,7 +470,7 @@ buttonDepreciated.grid(row=5,column=0,columnspan=4,sticky='en',padx=400)
 
 buttonHistorique.grid(row=3,rowspan=3, column=0, columnspan=4,sticky='w',padx=400)
 
-Text.grid(row=2,column=0,columnspan=4)
+Text1.grid(row=2,column=0,columnspan=4)
 
 buttonPlus1.grid(row=3,column=0,columnspan=4, rowspan=3, sticky=W, pady=30, padx=30)
 buttonnext.grid(row=3,column=0,rowspan=3, columnspan=4)
