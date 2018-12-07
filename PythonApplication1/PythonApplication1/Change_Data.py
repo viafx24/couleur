@@ -15,7 +15,7 @@ with open('Data_Old','rb') as fichier:
 Data=list()
 Emphasis="Normal"
 
-Date=date(2018,10,28)
+Date=date(2018,11,28)
 
 
 for i in range(0,len(Data_Old)):
@@ -34,8 +34,8 @@ with open('Data','wb') as fichier:
 print(Data)
 
 
-plt.plot(Data[1].Historique["TRT"],Data[1].Historique["SRR"],marker="x")
-plt.show()
+#plt.plot(Data[1].Historique["TRT"],Data[1].Historique["SRR"],marker="x")
+#plt.show()
 
 #for i in 
 ## import the data from the csv

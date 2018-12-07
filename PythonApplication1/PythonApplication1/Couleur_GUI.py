@@ -29,11 +29,17 @@ def update_label():
 
 def Sort_Data():
 
+
+    buttonnext.config(text='         Next         ')
+    buttonPlus1.config(state=NORMAL)
+    buttonMinus1.config(state=NORMAL)
+
     # load the data and choose randomly indices (the number chose in the spinob) among the lowest score (SRR)
 
-    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc, Failed_Citation
 
     Shuffle_Indices=list()
+    Failed_Citation=list()
     iteration=0
 
     with open('Data','rb') as fichier:
@@ -80,12 +86,22 @@ def Sort_Data():
     buttonStar.config(state=DISABLED)
     buttonDepreciated.config(state=DISABLED)
     buttonNormal.config(state=DISABLED)
+    buttonHistorique.config(state=DISABLED)
 
 def Secured_Rand_Data():
 
-    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
+
+    buttonnext.config(text='         Next         ')
+    buttonPlus1.config(state=NORMAL)
+    buttonMinus1.config(state=NORMAL)
+    
+
+
+
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc,Failed_Citation
 
     Shuffle_Indices=list()
+    Failed_Citation=list()
     iteration=0
 
     with open('Data','rb') as fichier:
@@ -128,7 +144,7 @@ def Secured_Rand_Data():
     buttonStar.config(state=DISABLED)
     buttonDepreciated.config(state=DISABLED)
     buttonNormal.config(state=DISABLED)
-
+    buttonHistorique.config(state=DISABLED)
     
 
 
@@ -192,34 +208,60 @@ def PlusOneSecured():
     buttonNormal.config(state=DISABLED)
 
 
-
-
-
 def Next_Iteration():
 #go to the next iteration (possible only after that the user click on +1 or -1)
 
-    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
-    iteration+=1
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc, Failed_Citation
     
-    #Text.grid_remove()
-    Text1.delete(1.0, END)
-    Text1.config(height=2)
-    labelnumber.grid_remove()
-    labelnumber.grid()
-    labelnumber.config(text=Data[Shuffle_Indices[iteration]].number)
-    labelnumber.config(font=helv72)
-
-
-    tic = time.time()
-    label.config(text=str(iteration+1)+"/"+str(Num_Value))
     
-    labelSRR.config(text='')
-    labelTRT.config(text='')
+    if iteration != Num_Value-1:  
+        
+        iteration+=1
+        Text1.delete(1.0, END)
+        Text1.config(height=2)
+        labelnumber.grid_remove()
+        labelnumber.grid()
+        labelnumber.config(text=Data[Shuffle_Indices[iteration]].number)
+        labelnumber.config(font=helv72)
 
-    buttonnext.config(state=DISABLED)#disabled the button once every things have been done 
-    buttonStar.config(state=DISABLED)
-    buttonDepreciated.config(state=DISABLED)
-    buttonNormal.config(state=DISABLED)
+
+        tic = time.time()
+        label.config(text=str(iteration+1)+"/"+str(Num_Value))
+    
+        labelSRR.config(text='')
+        labelTRT.config(text='')
+
+        buttonnext.config(state=DISABLED)#disabled the button once every things have been done 
+        buttonStar.config(state=DISABLED)
+        buttonDepreciated.config(state=DISABLED)
+        buttonNormal.config(state=DISABLED)
+        buttonHistorique.config(state=DISABLED)
+
+    else :
+        buttonnext.config(state=NORMAL)
+        Text1.delete(1.0, END)
+        Text1.config(height=text_height)
+        labelnumber.grid_remove()
+        labelnumber.grid()
+        labelSRR.config(text='')
+        labelTRT.config(text='')
+
+        labelnumber.config(text='Synthèse:')
+        #labelnumber.config(text='Il y a '+ str(len(Failed_Citation))+ ' erreur(s):' + str(Failed_Citation))
+        labelnumber.config(font=helv24)
+
+        text='Il y a '+ str(len(Failed_Citation))+ ' erreur(s) : ' + str(Failed_Citation)
+        Text1.insert(END, text)
+        Text1.config(font=helv18)
+
+        buttonnext.config(state=DISABLED)#disabled the button once every things have been done 
+        buttonStar.config(state=DISABLED)
+        buttonDepreciated.config(state=DISABLED)
+        buttonNormal.config(state=DISABLED)
+        buttonPlus1.config(state=DISABLED)
+        buttonMinus1.config(state=DISABLED)
+        buttonHistorique.config(state=DISABLED)
+
 
 def PlusOne():
 # add +1 in the database on the SRR (the user has found the citation).
@@ -246,9 +288,11 @@ def PlusOne():
     buttonStar.config(state=NORMAL)
     buttonDepreciated.config(state=NORMAL)
     buttonNormal.config(state=NORMAL)
+    buttonHistorique.config(state=NORMAL)
 
     if iteration == Num_Value-1:  
-         buttonnext.config(state=DISABLED)
+         buttonnext.config(state=NORMAL)
+         buttonnext.config(text='     Synthesis     ')
     else:
         buttonnext.config(state=NORMAL)
 
@@ -259,7 +303,7 @@ def PlusOne():
 def MinusOne():
 # add -1 in the database on the SRR (the user has found the citation).
 
-    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc
+    global Shuffle_Indices, iteration, Data, Num_Value, tic, toc, Failed_Citation
     toc = time.time()
 
     Text1.grid_remove()
@@ -279,9 +323,14 @@ def MinusOne():
     buttonStar.config(state=NORMAL)
     buttonDepreciated.config(state=NORMAL)
     buttonNormal.config(state=NORMAL)
+    buttonHistorique.config(state=NORMAL)
+
+    Failed_Citation.append(Data[Shuffle_Indices[iteration]].number)
 
     if iteration == Num_Value-1:  
-         buttonnext.config(state=DISABLED)
+         #buttonnext.config(state=DISABLED)
+         buttonnext.config(state=NORMAL)
+         buttonnext.config(text='     Synthesis     ')
     else:
         buttonnext.config(state=NORMAL)
     
@@ -328,9 +377,16 @@ def AjoutHistorique():
     SRR=Data[Shuffle_Indices[iteration]].SRR
     TRT=Data[Shuffle_Indices[iteration]].TRT
 
-    Ajout = pd.DataFrame([[Date,SRR,TRT]],columns=Data[Shuffle_Indices[iteration]].Historique.columns)  
+    #Ajout = pd.DataFrame([[Date,SRR,TRT]],columns=Data[Shuffle_Indices[iteration]].Historique.columns) 
+    
+    Ajout = pd.DataFrame([[Date,SRR,TRT]],columns=['Date','SRR','TRT'])
+
+
+
     Ajout["Date"]=pd.to_datetime(Ajout["Date"])
     Data[Shuffle_Indices[iteration]].Historique=Data[Shuffle_Indices[iteration]].Historique.append(Ajout)
+
+    print(Data[Shuffle_Indices[iteration]].Historique)
 
 def Save_Data(Data):
     #function to save the data
@@ -351,6 +407,8 @@ def ShowHistorique():
     windows2 = Toplevel(root)
     fig = plt.figure(1,figsize=(7,5))
 
+    plt.clf()
+
     # Special type of "canvas" to allow for matplotlib graphing
     canvas = FigureCanvasTkAgg(fig, master=windows2)
     plot_widget = canvas.get_tk_widget()
@@ -366,6 +424,7 @@ def ShowHistorique():
     # Example data (note: default calculations for angles are in radians)
 
     Data[Shuffle_Indices[iteration]].Historique.set_index(["Date"],inplace=True)
+    print(Data[Shuffle_Indices[iteration]].Historique)
     
     Data[Shuffle_Indices[iteration]].Historique["SRR"].plot(marker='x')
     fig.canvas.draw()
