@@ -26,25 +26,6 @@
     <Compile Include="Couleur_GUI.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="module1.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="module2.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="module3.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="module4.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="testGUIMatplotlibComboBox.py" />
-    <Compile Include="PlotHistorique.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TestGUIMatPlotLib4.py">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data" />
