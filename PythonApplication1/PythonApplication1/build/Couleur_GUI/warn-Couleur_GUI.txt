@@ -31,3 +31,7 @@ missing module named grp - imported by shutil (optional), tarfile (optional), C:
 missing module named org - imported by copy (optional), C:\Users\MAB\source\repos\couleur\PythonApplication1\PythonApplication1\Couleur_GUI.py (top-level)
 missing module named pwd - imported by posixpath (delayed, conditional), shutil (optional), tarfile (optional), http.server (delayed, optional), webbrowser (delayed), C:\Users\MAB\source\repos\couleur\PythonApplication1\PythonApplication1\Couleur_GUI.py (top-level), netrc (delayed, conditional), getpass (delayed)
 missing module named _dummy_threading - imported by dummy_threading (optional), C:\Users\MAB\source\repos\couleur\PythonApplication1\PythonApplication1\Couleur_GUI.py (top-level)
+missing module named pandas - imported by C:\Users\MAB\source\repos\couleur\PythonApplication1\PythonApplication1\Couleur_GUI.py (top-level)
+missing module named 'matplotlib.pyplot' - imported by C:\Users\MAB\source\repos\couleur\PythonApplication1\PythonApplication1\Couleur_GUI.py (top-level)
+missing module named 'matplotlib.backends' - imported by C:\Users\MAB\source\repos\couleur\PythonApplication1\PythonApplication1\Couleur_GUI.py (top-level)
+missing module named matplotlib - imported by C:\Users\MAB\source\repos\couleur\PythonApplication1\PythonApplication1\Couleur_GUI.py (top-level)

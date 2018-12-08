@@ -19,8 +19,6 @@ import pandas as pd
 import citation # my main class
 
 
-
-
 # function usefull to update the number chose in the spinbox in the top centered label
 def update_label():
 
@@ -144,7 +142,7 @@ def Secured_Random_Key():
 
     windows3 = Toplevel(root, bg='black')# create a third windows specific
     # create a text label inside this windows
-    Text2 = Text(windows3, height=text_height, width=120, font=helv12, bg='black',fg='white',borderwidth=0,wrap=WORD)
+    Text2 = Text(windows3, height=text_height, width=70, font=helv12, bg='black',fg='white',borderwidth=0,wrap=WORD)
     Text2.insert(END, Shuffle_Indices) #show the indices randomly chosen by th computer (rand function)
     Text2.grid(row=0, column=0, columnspan=4)
 
@@ -231,6 +229,7 @@ def Next_Iteration():
         text='Il y a '+ str(len(Failed_Citation))+ ' erreur(s) : ' + str(Failed_Citation)
         Text1.insert(END, text)
         Text1.config(font=helv18)
+        Text1.config(foreground="white")
 
         # disabled some buttons since it's the end of the training session to prevent bugs and errors.
         buttonnext.config(state=DISABLED)

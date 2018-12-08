@@ -15,7 +15,7 @@ with open('Data_Old','rb') as fichier:
 Data=list()
 Emphasis="Normal"
 
-Date=date(2018,11,28)
+Date=date(2018,12,1)
 
 
 for i in range(0,len(Data_Old)):
@@ -32,9 +32,9 @@ with open('Data','wb') as fichier:
     mon_pickler.dump(Data)
 
 #show the result
-#print(Data)
+print(Data)
 
-print(Data[1].Historique)
+#print(Data[1].Historique)
 
 #plt.plot(Data[1].Historique["TRT"],Data[1].Historique["SRR"],marker="x")
 #plt.show()

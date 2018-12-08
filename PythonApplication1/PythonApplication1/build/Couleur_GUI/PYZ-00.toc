@@ -7,10 +7,6 @@
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\_strptime.py',
    'PYMODULE'),
-  ('datetime',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\datetime.py',
-   'PYMODULE'),
   ('fnmatch',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\fnmatch.py',
@@ -529,6 +525,14 @@
    'PYMODULE'),
   ('citation',
    'C:\\Users\\MAB\\source\\repos\\couleur\\PythonApplication1\\PythonApplication1\\citation.py',
+   'PYMODULE'),
+  ('datetime',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\datetime.py',
+   'PYMODULE'),
+  ('tkinter.ttk',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\tkinter\\ttk.py',
    'PYMODULE'),
   ('tkinter.font',
    'C:\\Program Files (x86)\\Microsoft Visual '
